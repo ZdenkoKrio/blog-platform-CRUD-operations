@@ -1,30 +1,27 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-  <h1>{{ post.title }}</h1>
-  <p>{{ post.content }}</p>
-  <p><small>by {{ post.author }} on {{ post.created_at }}</small></p>
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+<p><small>by <a href="{% url 'user-profile' post.author.pk %}">{{ post.author.username }}</a> on {{ post.created_at }}</small></p>
 
-  <h3>Comments</h3>
-  <ul>
+<h3>Comments</h3>
+<ul>
     {% for comment in post.comments.all %}
-      <li>
-        <p>{{ comment.content }}</p>
-        <p><small>by {{ comment.author }} on {{ comment.created_at }}</small></p>
-        {% if user == post.author %}
-          <a href="{% url 'comment-delete' comment.pk %}">Delete</a>
-        {% endif %}
-      </li>
+        <li>
+            <p>{{ comment.content }}</p>
+            <p><small>by <a href="{% url 'user-profile' comment.author.pk %}">{{ comment.author.username }}</a> on {{ comment.created_at }}</small></p>
+        </li>
     {% empty %}
-      <p>No comments yet.</p>
+        <p>No comments yet.</p>
     {% endfor %}
-  </ul>
+</ul>
 
-  <h3>Add a Comment</h3>
-  <form action="{% url 'comment-create' post.id %}" method="post">
+<h3>Add a Comment</h3>
+<form action="{% url 'comment-create' post.id %}" method="post">
     {% csrf_token %}
     <textarea name="content" rows="3" required></textarea>
     <br>
     <button type="submit" class="btn btn-primary">Add Comment</button>
-  </form>
+</form>
 {% endblock %}

@@ -23,8 +23,10 @@
 <ul>
     {% for post in posts %}
         <li>
+            <li>
             <a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a>
-            <small>by {{ post.author }} in {{ post.category.name }} - {{ post.created_at }}</small>
+            <small>by <a href="{% url 'user-profile' post.author.pk %}">{{ post.author.username }}</a> in {{ post.category.name }} - {{ post.created_at }}</small>
+        </li>
         </li>
     {% empty %}
         <p>No posts found.</p>

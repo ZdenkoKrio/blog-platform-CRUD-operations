@@ -1,15 +1,51 @@
 {% extends 'base/base.html' %}
 
+{% load static %}
+
 {% block content %}
-  <h2>Welcome, {{ user.username }}</h2>
-  {% if user.profile.profile_picture %}
-    <img src="{{ user.profile.profile_picture.url }}" alt="{{ user.username }}'s profile picture">
-  {% else %}
-    <p>No profile picture.</p>
-  {% endif %}
-  <p>Bio: {{ user.profile.bio }}</p>
-  <form action="{% url 'logout' %}" method="post" style="display: inline;">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-  </form>
+<h1>{{ author.username }}'s Profile</h1>
+
+<div class="profile">
+    <!-- Profile picture -->
+    {% if profile.profile_picture %}
+        <img src="{{ profile.profile_picture.url }}" alt="{{ author.username }}'s Profile Picture" class="profile-picture">
+    {% else %}
+        <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default Profile Picture" class="profile-picture">
+    {% endif %}
+
+    <!-- Bio -->
+    <p><strong>Bio:</strong> {{ profile.bio|default:"No bio available." }}</p>
+
+    {% if profile.website %}
+        <p><strong>Website:</strong> <a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a></p>
+    {% endif %}
+
+    <!-- Social networks -->
+    <div class="social-links">
+        {% if profile.twitter %}
+            <a href="{{ profile.twitter }}" target="_blank">Twitter</a>
+        {% endif %}
+        {% if profile.facebook %}
+            <a href="{{ profile.facebook }}" target="_blank">Facebook</a>
+        {% endif %}
+        {% if profile.instagram %}
+            <a href="{{ profile.instagram }}" target="_blank">Instagram</a>
+        {% endif %}
+    </div>
+</div>
+
+
+{% if request.user == author %}
+    <a href="{% url 'profile-edit' %}" class="btn btn-primary">Edit Profile</a>
+{% endif %}
+
+<!-- User posts -->
+<h2>Posts by {{ author.username }}</h2>
+<ul>
+    {% for post in posts %}
+        <li><a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a> - {{ post.created_at }}</li>
+    {% empty %}
+        <p>No posts found.</p>
+    {% endfor %}
+</ul>
 {% endblock %}
