@@ -1,23 +1,33 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-    <h1>Blog Posts</h1>
-    <a href="{% url 'post-create' %}" class="btn btn-primary">Add New Post</a>
+<h1>Blog Posts</h1>
 
-    <h3>Categories</h3>
-    <ul>
+<form method="get" action=".">
+    <input type="text" name="q" placeholder="Search posts..." value="{{ search_query }}">
+    <select name="category">
+        <option value="">All Categories</option>
         {% for category in categories %}
-            <li>{{ category.name }}</li>
+            <option value="{{ category.id }}" {% if category.id|stringformat:"s" == current_category %}selected{% endif %}>
+                {{ category.name }}
+            </option>
         {% endfor %}
-    </ul>
+    </select>
+    <select name="ordering">
+        <option value="newest" {% if current_ordering == 'newest' %}selected{% endif %}>Newest First</option>
+        <option value="oldest" {% if current_ordering == 'oldest' %}selected{% endif %}>Oldest First</option>
+    </select>
+    <button type="submit">Apply</button>
+</form>
 
-    <ul>
-        {% for post in posts %}
-            <li>
-                <a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a>
-                <small>by {{ post.author }} in {{ post.category.name }}</small>
-                <p>{{ post.created_at }}</p>
-            </li>
-        {% endfor %}
-    </ul>
+<ul>
+    {% for post in posts %}
+        <li>
+            <a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a>
+            <small>by {{ post.author }} in {{ post.category.name }} - {{ post.created_at }}</small>
+        </li>
+    {% empty %}
+        <p>No posts found.</p>
+    {% endfor %}
+</ul>
 {% endblock %}
