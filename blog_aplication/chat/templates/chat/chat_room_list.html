@@ -1,0 +1,10 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h1>Chat Rooms</h1>
+<ul>
+    {% for category in categories %}
+        <li><a href="{% url 'chat-room' category.name %}">{{ category.name }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
