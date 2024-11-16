@@ -2,30 +2,37 @@
 {% load chat_filters %}
 
 {% block content %}
-<h1>{{ title }}</h1>
+<div id="chat-container">
+    <h1>{{ title }}</h1>
 
-{% if categories %}
-    <ul>
-        {% for category in categories %}
-            <li>
-                <a href="{% url 'chat-room' category.name %}">
-                    Room: {{ category.name }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-{% elif chats %}
-    <ul>
-    {% for chat in chats %}
-        <li>
-            <a href="{% url 'private-chat-detail' chat.id %}">
-                Chat with {{ chat|other_user:request.user }}
-            </a>
-        </li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No items to display.</p>
-{% endif %}
-
+    {% if categories %}
+        <div class="chat-section">
+            <h2>Chat Rooms</h2>
+            <ul class="chat-list">
+                {% for category in categories %}
+                    <li class="chat-item">
+                        <a href="{% url 'chat-room' category.name %}" class="chat-link">
+                            Room: {{ category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% elif chats %}
+        <div class="chat-section">
+            <h2>Private Chats</h2>
+            <ul class="chat-list">
+                {% for chat in chats %}
+                    <li class="chat-item">
+                        <a href="{% url 'private-chat-detail' chat.id %}" class="chat-link">
+                            Chat with {{ chat|other_user:request.user }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <p class="no-items">No items to display.</p>
+    {% endif %}
+</div>
 {% endblock %}

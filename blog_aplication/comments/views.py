@@ -23,7 +23,10 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
 class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Comment
     template_name = 'comments/comment_confirm_delete.html'
-    success_url = reverse_lazy('post-list')
+
+    def get_success_url(self):
+        post = self.get_object().post
+        return reverse_lazy('post-detail', kwargs={'pk': post.pk})
 
     def test_func(self):
         comment = self.get_object()

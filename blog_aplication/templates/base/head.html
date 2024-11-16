@@ -5,5 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Blog Platform{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/base-styles.css' %}">
+    <link rel="preload" href="{% static 'css/profile-styles.css' %}" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="{% static 'css/chat-list-styles.css' %}" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="{% static 'css/home-styles.css' %}" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="{% static 'css/about-styles.css' %}" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="{% static 'css/contact-styles.css' %}" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="{% static 'css/post-list-styles.css' %}" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="{% static 'css/post-detail-styles.css' %}" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="{% static 'css/base-chat-styles.css' %}" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="{% static 'css/post-form-styles.css' %}" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="{% static 'css/login-styles.css' %}" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="{% static 'css/register-styles.css' %}" as="style" onload="this.rel='stylesheet'">
+    <link rel="preload" href="{% static 'css/404-styles.css' %}" as="style" onload="this.rel='stylesheet'">
     {% block extra_head %}{% endblock %}
 </head>

@@ -1,27 +1,62 @@
 {% extends 'base/base.html' %}
 
+{% block title %}{{ post.title }} - Post Detail{% endblock %}
+
 {% block content %}
-<h1>{{ post.title }}</h1>
-<p>{{ post.content }}</p>
-<p><small>by <a href="{% url 'user-profile' post.author.pk %}">{{ post.author.username }}</a> on {{ post.created_at }}</small></p>
+<div id="post-detail-container">
+    <div id="post-header">
+        <h1>{{ post.title }}</h1>
+        <p class="post-author">
+            <small>by <a href="{% url 'user-profile' post.author.pk %}">{{ post.author.username }}</a>
+            on {{ post.created_at|date:"M d, Y" }}</small>
+        </p>
 
-<h3>Comments</h3>
-<ul>
-    {% for comment in post.comments.all %}
-        <li>
-            <p>{{ comment.content }}</p>
-            <p><small>by <a href="{% url 'user-profile' comment.author.pk %}">{{ comment.author.username }}</a> on {{ comment.created_at }}</small></p>
-        </li>
-    {% empty %}
-        <p>No comments yet.</p>
-    {% endfor %}
-</ul>
+        {% if request.user == post.author %}
+        <div id="post-actions">
+            <a href="{% url 'post-edit' post.pk %}" class="btn-action">Edit Post</a>
+            <form action="{% url 'post-delete' post.pk %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-delete">Delete Post</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
 
-<h3>Add a Comment</h3>
-<form action="{% url 'comment-create' post.id %}" method="post">
-    {% csrf_token %}
-    <textarea name="content" rows="3" required></textarea>
-    <br>
-    <button type="submit" class="btn btn-primary">Add Comment</button>
-</form>
+    <div id="post-content">
+        <p>{{ post.content }}</p>
+    </div>
+
+    <div id="comments-section">
+        <h3>Comments</h3>
+        <ul class="comments-list">
+            {% for comment in post.comments.all %}
+                <li class="comment-item">
+                    <p>{{ comment.content }}</p>
+                    <p class="comment-author">
+                        <small>by <a href="{% url 'user-profile' comment.author.pk %}">{{ comment.author.username }}</a>
+                        on {{ comment.created_at|date:"M d, Y H:i" }}</small>
+                    </p>
+                    {% if request.user == post.author %}
+                    <form action="{% url 'comment-delete' comment.pk %}" method="post" class="delete-comment-form">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-delete-comment">Delete Comment</button>
+                    </form>
+                    {% endif %}
+                </li>
+            {% empty %}
+                <p class="no-comments">No comments yet.</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div id="add-comment-section">
+        <h3>Add a Comment</h3>
+        <form action="{% url 'comment-create' post.id %}" method="post" id="comment-form">
+            {% csrf_token %}
+            <textarea name="content" rows="3" required placeholder="Write your comment here..."></textarea>
+            <br>
+            <button type="submit" class="btn-submit">Add Comment</button>
+        </form>
+    </div>
+</div>
 {% endblock %}

@@ -1,0 +1,65 @@
+#post-form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #1f1f1f;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    color: #ddd;
+    font-family: 'Roboto', sans-serif;
+}
+
+.form-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #f39c12;
+    margin-bottom: 20px;
+}
+
+.form-fields label {
+    font-weight: bold;
+    color: #f39c12;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-fields input[type="text"],
+.form-fields textarea,
+.form-fields select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #222;
+    color: #ddd;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.form-fields input[type="text"]:focus,
+.form-fields textarea:focus,
+.form-fields select:focus {
+    border-color: #f39c12;
+    outline: none;
+}
+
+.form-actions {
+    text-align: center;
+}
+
+.btn-submit {
+    background-color: #f39c12;
+    color: #1a1a1a;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #e67e22;
+    color: #fff;
+}

@@ -1,25 +1,23 @@
 from django.urls import reverse_lazy
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import FormView, DetailView, UpdateView
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from .models import UserProfile
+from .forms import CustomUserCreationForm
 from posts.models import Post
 
 
 class RegisterView(FormView):
     template_name = 'users/register.html'
-    form_class = UserCreationForm
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy('login')
 
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
         return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse_lazy('user-profile', kwargs={'pk': self.request.user.pk})
 
 
 class UserProfileUpdateView(LoginRequiredMixin, UpdateView):

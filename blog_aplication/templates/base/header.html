@@ -9,6 +9,7 @@
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'chat-room-list' %}">Chat Rooms</a></li>
                     <li><a href="{% url 'private-chat-list' %}">Private Chats</a></li>
+                    <li><a href="{% url 'post-create' %}">Create Post</a></li>
                     <li><a href="{% url 'user-profile' user.pk %}">My Profile</a></li>
                     <li>
                         <form action="{% url 'logout' %}" method="post" style="display: inline;">

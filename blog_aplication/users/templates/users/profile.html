@@ -2,39 +2,40 @@
 {% load static %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="{% static 'css/profile-styles.css' %}">
 {% endblock %}
 
 {% block content %}
 <div id="profile-container">
-    <div id="profile-header">
-        <img id="profile-picture" src="{{ user.profile.profile_picture }}" alt="Profile Picture">
-        <h1>{{ user.username }}</h1>
-    </div>
-    <div id="profile-details">
-        <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
-        {% if user.profile.website %}
-            <p><strong>Website:</strong> <a href="{{ user.profile.website }}" target="_blank">{{ user.profile.website }}</a></p>
-        {% endif %}
-        <p><strong>Socials:</strong></p>
-        <ul>
-            {% if user.profile.twitter %}
-                <li><a href="{{ user.profile.twitter }}" target="_blank">Twitter</a></li>
-            {% endif %}
-            {% if user.profile.facebook %}
-                <li><a href="{{ user.profile.facebook }}" target="_blank">Facebook</a></li>
-            {% endif %}
-            {% if user.profile.instagram %}
-                <li><a href="{{ user.profile.instagram }}" target="_blank">Instagram</a></li>
-            {% endif %}
-        </ul>
-    </div>
-
-    {% if user != request.user %}
-        <div id="chat-link">
-            <a href="{% url 'private-chat-start' user.pk %}" class="btn-chat">Start Private Chat</a>
+    <div id="profile-card">
+        <div id="profile-header">
+            <img id="profile-picture" src="{{ user.profile.profile_picture }}" alt="Profile Picture">
+            <h1>{{ user.username }}</h1>
         </div>
-    {% endif %}
+        <div id="profile-details">
+            <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+            {% if user.profile.website %}
+                <p><strong>Website:</strong> <a href="{{ user.profile.website }}" target="_blank">{{ user.profile.website }}</a></p>
+            {% endif %}
+            <p><strong>Socials:</strong></p>
+            <ul>
+                {% if user.profile.twitter %}
+                    <li><a href="{{ user.profile.twitter }}" target="_blank">Twitter</a></li>
+                {% endif %}
+                {% if user.profile.facebook %}
+                    <li><a href="{{ user.profile.facebook }}" target="_blank">Facebook</a></li>
+                {% endif %}
+                {% if user.profile.instagram %}
+                    <li><a href="{{ user.profile.instagram }}" target="_blank">Instagram</a></li>
+                {% endif %}
+            </ul>
+        </div>
+
+        {% if user != request.user %}
+            <div id="chat-link">
+                <a href="{% url 'private-chat-start' user.pk %}" class="btn-chat">Start Private Chat</a>
+            </div>
+        {% endif %}
+    </div>
 
     <div id="user-posts">
         <h2>{{ user.username }}'s Posts</h2>
