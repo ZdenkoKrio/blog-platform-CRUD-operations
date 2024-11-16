@@ -1,0 +1,31 @@
+{% extends 'base/base.html' %}
+{% load chat_filters %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+{% if categories %}
+    <ul>
+        {% for category in categories %}
+            <li>
+                <a href="{% url 'chat-room' category.name %}">
+                    Room: {{ category.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% elif chats %}
+    <ul>
+    {% for chat in chats %}
+        <li>
+            <a href="{% url 'private-chat-detail' chat.id %}">
+                Chat with {{ chat|other_user:request.user }}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No items to display.</p>
+{% endif %}
+
+{% endblock %}

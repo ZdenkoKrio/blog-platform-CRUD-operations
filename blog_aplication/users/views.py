@@ -37,18 +37,20 @@ class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
         return self.get_object().user == self.request.user
 
 
-class UserProfileView(LoginRequiredMixin, DetailView):
+class UserProfileView(DetailView):
     model = User
     template_name = 'users/profile.html'
-    context_object_name = 'author'
-    # login_url = 'home' -> higher priority than settings constant
+    context_object_name = 'user'
+
+    def get_object(self):
+        post_id = self.kwargs.get('post_id')
+        if post_id:
+            post = get_object_or_404(Post, pk=post_id)
+            return post.author
+
+        return get_object_or_404(User, pk=self.kwargs.get('pk'))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        user_profile = get_object_or_404(UserProfile, user=self.object)
-        user_posts = Post.objects.filter(author=self.object).order_by('-created_at')
-
-        context['profile'] = user_profile
-        context['posts'] = user_posts
+        context['posts'] = Post.objects.filter(author=self.object).order_by('-created_at')
         return context

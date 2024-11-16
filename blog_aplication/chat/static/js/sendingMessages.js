@@ -1,51 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
     const chatLog = document.getElementById("chat-log");
-    const categoryName = chatLog.dataset.category;
-
+    const chatType = chatLog.dataset.chatType;
+    const chatId = chatLog.dataset.chatId;
 
     const chatSocket = new WebSocket(
-        'ws://' + window.location.host + '/ws/chat/' + categoryName + '/'
+        `ws://${window.location.host}/ws/chat/${chatType}/${chatId}/`
     );
 
-
-    chatSocket.onmessage = function(e) {
+    chatSocket.onmessage = function (e) {
         const data = JSON.parse(e.data);
-        const messageElement = document.createElement('p');
+        const messageElement = document.createElement("div");
         messageElement.innerHTML = `
             <strong>${data.username}</strong>: ${data.message}
-            <span class="timestamp">${data.timestamp}</span>
+            <span style="font-size: 0.8em; color: gray;">(${data.timestamp})</span>
         `;
         chatLog.appendChild(messageElement);
         chatLog.scrollTop = chatLog.scrollHeight;
     };
 
-    chatSocket.onopen = function() {
-        console.log("The connection was setup successfully!");
-    };
-
-    chatSocket.onclose = function() {
-        console.error('Chat socket closed unexpectedly');
-    };
-
-
-    const messageInputDom = document.querySelector('#chat-message-input');
-    messageInputDom.focus();
-
-
-    messageInputDom.addEventListener('keyup', (e) => {
-        if (e.key === 'Enter') {
-            document.querySelector('#chat-message-submit').click();
-        }
-    });
-
-
-    document.querySelector('#chat-message-submit').addEventListener('click', () => {
-        const message = messageInputDom.value.trim();
+    document.getElementById("chat-message-submit").onclick = function () {
+        const input = document.getElementById("chat-message-input");
+        const message = input.value.trim();
         if (message) {
-            chatSocket.send(JSON.stringify({
-                'message': message
-            }));
-            messageInputDom.value = '';
+            chatSocket.send(JSON.stringify({ message }));
+            input.value = "";
         }
-    });
+    };
 });

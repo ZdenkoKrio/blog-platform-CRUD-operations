@@ -1,16 +1,10 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-
-{% block extra_head %}
-
-{% endblock %}
-
-
 {% block content %}
-<h1>Chat Room: {{ category.name }}</h1>
-<div id="chat-log" data-category="{{ category.name }}">
-    <!-- Messages will be dynamically inserted here -->
+<h1>Chat {{ title }}</h1>
+<div id="chat-log" data-chat-type="{{ chat_type }}" data-chat-id="{{ chat_id }}">
+    <!-- Messages will be dynamically inserted -->
 </div>
 <div id="chat-input-container">
     <input type="text" id="chat-message-input" autocomplete="off" placeholder="Type your message...">

@@ -1,51 +1,55 @@
 {% extends 'base/base.html' %}
-
 {% load static %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/profile-styles.css' %}">
+{% endblock %}
+
 {% block content %}
-<h1>{{ author.username }}'s Profile</h1>
+<div id="profile-container">
+    <div id="profile-header">
+        <img id="profile-picture" src="{{ user.profile.profile_picture }}" alt="Profile Picture">
+        <h1>{{ user.username }}</h1>
+    </div>
+    <div id="profile-details">
+        <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+        {% if user.profile.website %}
+            <p><strong>Website:</strong> <a href="{{ user.profile.website }}" target="_blank">{{ user.profile.website }}</a></p>
+        {% endif %}
+        <p><strong>Socials:</strong></p>
+        <ul>
+            {% if user.profile.twitter %}
+                <li><a href="{{ user.profile.twitter }}" target="_blank">Twitter</a></li>
+            {% endif %}
+            {% if user.profile.facebook %}
+                <li><a href="{{ user.profile.facebook }}" target="_blank">Facebook</a></li>
+            {% endif %}
+            {% if user.profile.instagram %}
+                <li><a href="{{ user.profile.instagram }}" target="_blank">Instagram</a></li>
+            {% endif %}
+        </ul>
+    </div>
 
-<div class="profile">
-    <!-- Profile picture -->
-    {% if profile.profile_picture %}
-        <img src="{{ profile.profile_picture.url }}" alt="{{ author.username }}'s Profile Picture" class="profile-picture">
-    {% else %}
-        <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default Profile Picture" class="profile-picture">
+    {% if user != request.user %}
+        <div id="chat-link">
+            <a href="{% url 'private-chat-start' user.pk %}" class="btn-chat">Start Private Chat</a>
+        </div>
     {% endif %}
 
-    <!-- Bio -->
-    <p><strong>Bio:</strong> {{ profile.bio|default:"No bio available." }}</p>
-
-    {% if profile.website %}
-        <p><strong>Website:</strong> <a href="{{ profile.website }}" target="_blank">{{ profile.website }}</a></p>
-    {% endif %}
-
-    <!-- Social networks -->
-    <div class="social-links">
-        {% if profile.twitter %}
-            <a href="{{ profile.twitter }}" target="_blank">Twitter</a>
-        {% endif %}
-        {% if profile.facebook %}
-            <a href="{{ profile.facebook }}" target="_blank">Facebook</a>
-        {% endif %}
-        {% if profile.instagram %}
-            <a href="{{ profile.instagram }}" target="_blank">Instagram</a>
+    <div id="user-posts">
+        <h2>{{ user.username }}'s Posts</h2>
+        {% if posts %}
+            <ul>
+                {% for post in posts %}
+                    <li>
+                        <a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a>
+                        <span class="post-date">({{ post.created_at|date:"M d, Y" }})</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{{ user.username }} has not written any posts yet.</p>
         {% endif %}
     </div>
 </div>
-
-
-{% if request.user == author %}
-    <a href="{% url 'profile-edit' %}" class="btn btn-primary">Edit Profile</a>
-{% endif %}
-
-<!-- User posts -->
-<h2>Posts by {{ author.username }}</h2>
-<ul>
-    {% for post in posts %}
-        <li><a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a> - {{ post.created_at }}</li>
-    {% empty %}
-        <p>No posts found.</p>
-    {% endfor %}
-</ul>
 {% endblock %}

@@ -1,23 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const chatLog = document.getElementById("chat-log");
+    const chatType = chatLog.dataset.chatType;
+    const chatId = chatLog.dataset.chatId;
+
     let offset = 0;
     const limit = 10;
-    const chatLog = document.getElementById("chat-log");
-    const category = chatLog.dataset.category;
 
     async function loadMessages() {
         try {
-            const response = await fetch(`/chat/${category}/messages/?offset=${offset}`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            const response = await fetch(`/chat/${chatType}/${chatId}/messages/?offset=${offset}`);
+            if (!response.ok) throw new Error("Failed to load messages");
+
             const data = await response.json();
             const messages = data.messages;
 
-            messages.forEach((message) => {
+            messages.forEach((msg) => {
                 const messageElement = document.createElement("div");
                 messageElement.innerHTML = `
-                    <strong>${message.sender}:</strong> ${message.message}
-                    <span style="font-size: 0.8em; color: gray;">(${message.timestamp})</span>
+                    <strong>${msg.sender}:</strong> ${msg.message}
+                    <span style="font-size: 0.8em; color: gray;">(${msg.timestamp})</span>
                 `;
                 chatLog.prepend(messageElement);
             });
@@ -28,11 +29,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    loadMessages();
-
     chatLog.addEventListener("scroll", () => {
-        if (chatLog.scrollTop === 0) {
-            loadMessages();
-        }
+        if (chatLog.scrollTop === 0) loadMessages();
     });
+
+    loadMessages();
 });
