@@ -1,45 +1,55 @@
 {% extends 'base/base.html' %}
-{% load static %}
 {% load i18n %}
-
-{% block extra_head %}
-{% endblock %}
 
 {% block content %}
 <div id="profile-container">
-    <div id="profile-card">
+    <div id="">
         <div id="profile-header">
-            <img id="profile-picture" src="{{ user.profile.profile_picture }}" alt="{% trans 'Profile Picture' %}">
-            <h1>{{ user.username }}</h1>
-        </div>
-        <div id="profile-details">
-            <p><strong>{% trans "Bio:" %}</strong> {{ user.profile.bio }}</p>
-            {% if user.profile.website %}
-                <p><strong>{% trans "Website:" %}</strong> <a href="{{ user.profile.website }}" target="_blank">{{ user.profile.website }}</a></p>
+            <div id="profile-info">
+                <img id="profile-picture" src="{{ user.profile.profile_picture.url }}" alt="Profile Picture">
+                <h1>{{ user.username }}</h1>
+            </div>
+            {% if user == request.user %}
+                <a href="{% url 'profile-edit' %}" class="btn-edit-profile">{% trans "Edit Profile" %}</a>
             {% endif %}
-            <p><strong>{% trans "Socials:" %}</strong></p>
-            <ul>
+        </div>
+    </div>
+
+    <div id="profile-details">
+        <div class="profile-card">
+            <h3>{% trans "Bio" %}</h3>
+            <p>{{ user.profile.bio }}</p>
+        </div>
+        {% if user.profile.website %}
+            <div class="profile-card">
+                <h3>{% trans "Website" %}</h3>
+                <a href="{{ user.profile.website }}" target="_blank">{{ user.profile.website }}</a>
+            </div>
+        {% endif %}
+        <div class="profile-card">
+            <h3>{% trans "Socials" %}</h3>
+            <ul class="socials">
                 {% if user.profile.twitter %}
-                    <li><a href="{{ user.profile.twitter }}" target="_blank">{% trans "Twitter" %}</a></li>
+                    <li><a href="{{ user.profile.twitter }}" target="_blank">Twitter</a></li>
                 {% endif %}
                 {% if user.profile.facebook %}
-                    <li><a href="{{ user.profile.facebook }}" target="_blank">{% trans "Facebook" %}</a></li>
+                    <li><a href="{{ user.profile.facebook }}" target="_blank">Facebook</a></li>
                 {% endif %}
                 {% if user.profile.instagram %}
-                    <li><a href="{{ user.profile.instagram }}" target="_blank">{% trans "Instagram" %}</a></li>
+                    <li><a href="{{ user.profile.instagram }}" target="_blank">Instagram</a></li>
                 {% endif %}
             </ul>
         </div>
-
-        {% if user != request.user %}
-            <div id="chat-link">
-                <a href="{% url 'private-chat-start' user.pk %}" class="btn-chat">{% trans "Start Private Chat" %}</a>
-            </div>
-        {% endif %}
     </div>
 
+    {% if user != request.user %}
+        <div id="chat-link">
+            <a href="{% url 'private-chat-start' user.pk %}" class="btn-chat">{% trans "Start Private Chat" %}</a>
+        </div>
+    {% endif %}
+
     <div id="user-posts">
-        <h2>{{ user.username }}{% trans "'s Posts" %}</h2>
+        <h2>{{ user.username }}'s {% trans "Posts" %}</h2>
         {% if posts %}
             <ul>
                 {% for post in posts %}

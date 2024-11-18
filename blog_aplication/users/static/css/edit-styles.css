@@ -1,0 +1,90 @@
+/* Kontejner pre úpravu profilu */
+#edit-profile-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #1f1f1f, #292929);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    color: #ddd;
+}
+
+/* Nadpis formulára */
+#edit-profile-container .form-title {
+    color: #f39c12;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Formulár */
+#edit-profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Polia formulára */
+.form-fields input[type="text"],
+.form-fields input[type="url"],
+.form-fields input[type="file"],
+.form-fields textarea,
+.form-fields select {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background: #2a2a2a;
+    color: #ddd;
+    transition: all 0.3s ease;
+}
+
+.form-fields input[type="text"]:focus,
+.form-fields input[type="url"]:focus,
+.form-fields input[type="file"]:focus,
+.form-fields textarea:focus,
+.form-fields select:focus {
+    border-color: #f39c12;
+    outline: none;
+}
+
+/* Akcie formulára */
+.form-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-submit {
+    display: inline-block;
+    background-color: #f39c12;
+    color: #1a1a1a;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #e67e22;
+    color: #fff;
+}
+
+/* Responsívny dizajn */
+@media (max-width: 600px) {
+    #edit-profile-container {
+        padding: 15px;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+
+    .btn-submit {
+        width: 100%;
+        padding: 10px;
+    }
+}
