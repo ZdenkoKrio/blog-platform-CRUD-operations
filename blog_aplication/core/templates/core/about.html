@@ -1,49 +1,50 @@
 {% extends 'base/base.html' %}
+{% load i18n %}
 
-{% block title %}About Us - My Blog Platform{% endblock %}
+{% block title %}{% trans "About Us - My Blog Platform" %}{% endblock %}
 
 {% block content %}
 <div class="about-page">
     <div id="about-header">
-        <h1>About Us</h1>
-        <p>Your go-to platform for connecting with music lovers, sharing thoughts, and diving into insightful blog posts.</p>
+        <h1>{% trans "About Us" %}</h1>
+        <p>{% trans "Your go-to platform for connecting with music lovers, sharing thoughts, and diving into insightful blog posts." %}</p>
     </div>
 
     <div id="about-values">
-        <h2>Our Values</h2>
+        <h2>{% trans "Our Values" %}</h2>
         <ul class="values-list">
             <li>
-                <h3>Knowledge Sharing</h3>
-                <p>We believe in the power of sharing knowledge to inspire and educate.</p>
+                <h3>{% trans "Knowledge Sharing" %}</h3>
+                <p>{% trans "We believe in the power of sharing knowledge to inspire and educate." %}</p>
             </li>
             <li>
-                <h3>Community Connection</h3>
-                <p>We foster a welcoming environment for music and blog enthusiasts.</p>
+                <h3>{% trans "Community Connection" %}</h3>
+                <p>{% trans "We foster a welcoming environment for music and blog enthusiasts." %}</p>
             </li>
             <li>
-                <h3>Creativity</h3>
-                <p>Our platform encourages creativity and expression through writing and interaction.</p>
+                <h3>{% trans "Creativity" %}</h3>
+                <p>{% trans "Our platform encourages creativity and expression through writing and interaction." %}</p>
             </li>
         </ul>
     </div>
 
     <div id="about-team">
-        <h2>Meet the Team</h2>
+        <h2>{% trans "Meet the Team" %}</h2>
         <div class="team-grid">
             <div class="team-member">
-                <img src="" alt="Team Member 1">
+                <img src="" alt="{% trans 'Team Member 1' %}">
                 <h3>Zdenko Čepan</h3>
-                <p>Content Strategist</p>
+                <p>{% trans "Content Strategist" %}</p>
             </div>
             <div class="team-member">
-                <img src="" alt="Team Member 2">
+                <img src="" alt="{% trans 'Team Member 2' %}">
                 <h3>Zdenko Čepan</h3>
-                <p>Lead Developer</p>
+                <p>{% trans "Lead Developer" %}</p>
             </div>
             <div class="team-member">
-                <img src="" alt="Team Member 3">
+                <img src="" alt="{% trans 'Team Member 3' %}">
                 <h3>Zdenko Čepan</h3>
-                <p>Community Manager</p>
+                <p>{% trans "Community Manager" %}</p>
             </div>
         </div>
     </div>

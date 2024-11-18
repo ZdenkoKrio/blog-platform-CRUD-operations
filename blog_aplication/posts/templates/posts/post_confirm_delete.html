@@ -1,14 +1,15 @@
 {% extends 'base/base.html' %}
+{% load i18n %}
 
-{% block title %}Delete Post{% endblock %}
+{% block title %}{% trans "Delete Post" %}{% endblock %}
 
 {% block content %}
 <div class="delete-confirmation">
-    <h1>Are you sure you want to delete "{{ object.title }}"?</h1>
+    <h1>{% blocktrans %}Are you sure you want to delete "{{ object.title }}"?{% endblocktrans %}</h1>
     <form method="post">
         {% csrf_token %}
-        <button type="submit" class="btn-delete">Yes, delete</button>
-        <a href="{% url 'post-detail' object.pk %}" class="btn-action">Cancel</a>
+        <button type="submit" class="btn-delete">{% trans "Yes, delete" %}</button>
+        <a href="{% url 'post-detail' object.pk %}" class="btn-action">{% trans "Cancel" %}</a>
     </form>
 </div>
 {% endblock %}

@@ -1,17 +1,30 @@
 {% extends 'base/base.html' %}
+{% load i18n %}
 
-{% block title %}{% if form.instance.pk %}Edit Post{% else %}New Post{% endif %}{% endblock %}
+{% block title %}
+    {% if form.instance.pk %}
+        {% trans "Edit Post" %}
+    {% else %}
+        {% trans "New Post" %}
+    {% endif %}
+{% endblock %}
 
 {% block content %}
 <div id="post-form-container">
-    <h2 class="form-title">{% if form.instance.pk %}Edit Post{% else %}New Post{% endif %}</h2>
+    <h2 class="form-title">
+        {% if form.instance.pk %}
+            {% trans "Edit Post" %}
+        {% else %}
+            {% trans "New Post" %}
+        {% endif %}
+    </h2>
     <form method="post" id="post-form">
         {% csrf_token %}
         <div class="form-fields">
             {{ form.as_p }}
         </div>
         <div class="form-actions">
-            <button type="submit" class="btn-submit">Save</button>
+            <button type="submit" class="btn-submit">{% trans "Save" %}</button>
         </div>
     </form>
 </div>

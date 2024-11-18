@@ -1,14 +1,17 @@
 {% extends 'base/base.html' %}
+{% load i18n %}
 
-{% block title %}404 - Page Not Found{% endblock %}
+{% block title %}{% trans "404 - Page Not Found" %}{% endblock %}
 
 {% block content %}
 <div id="error-page">
     <div class="error-container">
         <h1>404</h1>
-        <p class="error-message">Oops! The page you're looking for doesn't exist.</p>
-        <p class="error-suggestion">It seems you may have taken a wrong turn. Don't worry, it happens to the best of us.</p>
-        <a href="{% url 'home' %}" class="btn-home">Go Back Home</a>
+        <p class="error-message">{% trans "Oops! The page you're looking for doesn't exist." %}</p>
+        <p class="error-suggestion">
+            {% trans "It seems you may have taken a wrong turn. Don't worry, it happens to the best of us." %}
+        </p>
+        <a href="{% url 'home' %}" class="btn-home">{% trans "Go Back Home" %}</a>
     </div>
 </div>
 {% endblock %}

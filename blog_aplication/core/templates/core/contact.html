@@ -1,34 +1,35 @@
 {% extends 'base/base.html' %}
+{% load i18n %}
 
-{% block title %}Contact Us - My Blog Platform{% endblock %}
+{% block title %}{% trans "Contact Us - My Blog Platform" %}{% endblock %}
 
 {% block content %}
 <div class="contact-page">
     <div id="contact-header">
-        <h1>Contact Us</h1>
-        <p>We'd love to hear from you! Fill out the form below to reach us directly.</p>
+        <h1>{% trans "Contact Us" %}</h1>
+        <p>{% trans "We'd love to hear from you! Fill out the form below to reach us directly." %}</p>
     </div>
 
     <div id="contact-form-container">
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
-                <label for="name">Your Name:</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                <label for="name">{% trans "Your Name:" %}</label>
+                <input type="text" id="name" name="name" placeholder="{% trans 'Enter your name' %}" required>
             </div>
             <div class="form-group">
-                <label for="email">Your Email:</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <label for="email">{% trans "Your Email:" %}</label>
+                <input type="email" id="email" name="email" placeholder="{% trans 'Enter your email' %}" required>
             </div>
             <div class="form-group">
-                <label for="message">Your Message:</label>
-                <textarea id="message" name="message" rows="5" placeholder="Enter your message" required></textarea>
+                <label for="message">{% trans "Your Message:" %}</label>
+                <textarea id="message" name="message" rows="5" placeholder="{% trans 'Enter your message' %}" required></textarea>
             </div>
             <div class="form-group">
-                <label for="captcha">What is 5 + 3?</label>
-                <input type="text" id="captcha" name="captcha" placeholder="Answer the question to verify" required>
+                <label for="captcha">{% trans "What is 5 + 3?" %}</label>
+                <input type="text" id="captcha" name="captcha" placeholder="{% trans 'Answer the question to verify' %}" required>
             </div>
-            <button type="submit" class="btn-submit">Send Message</button>
+            <button type="submit" class="btn-submit">{% trans "Send Message" %}</button>
         </form>
     </div>
 </div>

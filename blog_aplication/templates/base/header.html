@@ -1,28 +1,44 @@
+{% load i18n %}
+
 <header id="site-header">
     <div class="container">
-        <h1 class="logo"><a href="{% url 'home' %}">My Blog Platform</a></h1>
+        <h1 class="logo"><a href="{% url 'home' %}">{% trans "My Blog Platform" %}</a></h1>
         <nav id="main-nav">
             <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'about' %}">About</a></li>
-                <li><a href="{% url 'post-list' %}">Articles</a></li>
+                <li><a href="{% url 'home' %}">{% trans "Home" %}</a></li>
+                <li><a href="{% url 'about' %}">{% trans "About" %}</a></li>
+                <li><a href="{% url 'post-list' %}">{% trans "Articles" %}</a></li>
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'chat-room-list' %}">Chat Rooms</a></li>
-                    <li><a href="{% url 'private-chat-list' %}">Private Chats</a></li>
-                    <li><a href="{% url 'post-create' %}">Create Post</a></li>
-                    <li><a href="{% url 'user-profile' user.pk %}">My Profile</a></li>
+                    <li><a href="{% url 'chat-room-list' %}">{% trans "Chat Rooms" %}</a></li>
+                    <li><a href="{% url 'private-chat-list' %}">{% trans "Private Chats" %}</a></li>
+                    <li><a href="{% url 'post-create' %}">{% trans "Create Post" %}</a></li>
+                    <li><a href="{% url 'user-profile' user.pk %}">{% trans "My Profile" %}</a></li>
                     <li>
                         <form action="{% url 'logout' %}" method="post" style="display: inline;">
                             {% csrf_token %}
-                            <button type="submit" class="logout-btn">Logout</button>
+                            <button type="submit" class="logout-btn">{% trans "Logout" %}</button>
                         </form>
                     </li>
                 {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
-                    <li><a href="{% url 'register' %}">Register</a></li>
+                    <li><a href="{% url 'login' %}">{% trans "Login" %}</a></li>
+                    <li><a href="{% url 'register' %}">{% trans "Register" %}</a></li>
                 {% endif %}
-                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'contact' %}">{% trans "Contact" %}</a></li>
             </ul>
         </nav>
+
+        <!-- language switch -->
+<form method="post" action="{% url 'set_language' %}">
+    {% csrf_token %}
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_language_info_list for LANGUAGES as languages %}
+    <select name="language" onchange="this.form.submit()">
+        {% for lang in languages %}
+            <option value="{{ lang.code }}" {% if lang.code == LANGUAGE_CODE %}selected{% endif %}>
+                {{ lang.name_local }} ({{ lang.code }})
+            </option>
+        {% endfor %}
+    </select>
+</form>
     </div>
 </header>

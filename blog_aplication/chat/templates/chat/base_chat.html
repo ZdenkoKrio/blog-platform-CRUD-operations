@@ -1,17 +1,18 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Chat - {{ title }}{% endblock %}
+{% block title %}{% trans "Chat" %} - {{ title }}{% endblock %}
 
 {% block content %}
 <div id="chat-page">
-    <h1>Chat: {{ title }}</h1>
+    <h1>{% trans "Chat:" %} {{ title }}</h1>
     <div id="chat-log" data-chat-type="{{ chat_type }}" data-chat-id="{{ chat_id }}">
         <!-- Messages will be dynamically inserted -->
     </div>
     <div id="chat-input-container">
-        <input type="text" id="chat-message-input" autocomplete="off" placeholder="Type your message...">
-        <button id="chat-message-submit">Send</button>
+        <input type="text" id="chat-message-input" autocomplete="off" placeholder="{% trans 'Type your message...' %}">
+        <button id="chat-message-submit">{% trans "Send" %}</button>
     </div>
 </div>
 

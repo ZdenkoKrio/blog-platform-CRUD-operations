@@ -1,48 +1,49 @@
 {% extends 'base/base.html' %}
+{% load i18n %}
 
-{% block title %}Home - My Blog Platform{% endblock %}
+{% block title %}{% trans "Home - My Blog Platform" %}{% endblock %}
 
 {% block content %}
 <div class="home-page">
     <div id="welcome-section">
-        <h1>Welcome to My Blog Platform</h1>
-        <p>Discover amazing blog posts, connect with bands, and chat with others!</p>
+        <h1>{% trans "Welcome to My Blog Platform" %}</h1>
+        <p>{% trans "Discover amazing blog posts, connect with bands, and chat with others!" %}</p>
     </div>
 
     <div id="featured-section">
-        <h2>Featured Posts</h2>
+        <h2>{% trans "Featured Posts" %}</h2>
         <div class="featured-grid">
             <div class="featured-item">
-                <h3>Understanding AI</h3>
-                <p>Learn the basics of artificial intelligence and its applications in modern life.</p>
-                <a href="#" class="btn-read-more">Read More</a>
+                <h3>{% trans "Understanding AI" %}</h3>
+                <p>{% trans "Learn the basics of artificial intelligence and its applications in modern life." %}</p>
+                <a href="#" class="btn-read-more">{% trans "Read More" %}</a>
             </div>
             <div class="featured-item">
-                <h3>Top 10 Music Bands</h3>
-                <p>Explore the top 10 bands that shaped the music industry.</p>
-                <a href="#" class="btn-read-more">Read More</a>
+                <h3>{% trans "Top 10 Music Bands" %}</h3>
+                <p>{% trans "Explore the top 10 bands that shaped the music industry." %}</p>
+                <a href="#" class="btn-read-more">{% trans "Read More" %}</a>
             </div>
             <div class="featured-item">
-                <h3>Web Development Tips</h3>
-                <p>Improve your web development skills with these essential tips.</p>
-                <a href="#" class="btn-read-more">Read More</a>
+                <h3>{% trans "Web Development Tips" %}</h3>
+                <p>{% trans "Improve your web development skills with these essential tips." %}</p>
+                <a href="#" class="btn-read-more">{% trans "Read More" %}</a>
             </div>
         </div>
     </div>
 
     <div id="latest-section">
-        <h2>Latest Blog Posts</h2>
+        <h2>{% trans "Latest Blog Posts" %}</h2>
         <ul class="latest-list">
             <li>
-                <a href="#">How to Build a Modern Blog Platform</a>
+                <a href="#">{% trans "How to Build a Modern Blog Platform" %}</a>
                 <span class="post-date">Nov 13, 2024</span>
             </li>
             <li>
-                <a href="#">The Rise of Indie Bands</a>
+                <a href="#">{% trans "The Rise of Indie Bands" %}</a>
                 <span class="post-date">Nov 12, 2024</span>
             </li>
             <li>
-                <a href="#">Tips for Effective Online Communication</a>
+                <a href="#">{% trans "Tips for Effective Online Communication" %}</a>
                 <span class="post-date">Nov 11, 2024</span>
             </li>
         </ul>

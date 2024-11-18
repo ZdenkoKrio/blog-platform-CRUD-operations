@@ -1,5 +1,8 @@
 {% extends 'base/base.html' %}
 {% load chat_filters %}
+{% load i18n %}
+
+{% block title %}{% trans "Chat Overview" %}{% endblock %}
 
 {% block content %}
 <div id="chat-container">
@@ -7,12 +10,12 @@
 
     {% if categories %}
         <div class="chat-section">
-            <h2>Chat Rooms</h2>
+            <h2>{% trans "Chat Rooms" %}</h2>
             <ul class="chat-list">
                 {% for category in categories %}
                     <li class="chat-item">
                         <a href="{% url 'chat-room' category.name %}" class="chat-link">
-                            Room: {{ category.name }}
+                            {% trans "Room:" %} {{ category.name }}
                         </a>
                     </li>
                 {% endfor %}
@@ -20,19 +23,19 @@
         </div>
     {% elif chats %}
         <div class="chat-section">
-            <h2>Private Chats</h2>
+            <h2>{% trans "Private Chats" %}</h2>
             <ul class="chat-list">
                 {% for chat in chats %}
                     <li class="chat-item">
                         <a href="{% url 'private-chat-detail' chat.id %}" class="chat-link">
-                            Chat with {{ chat|other_user:request.user }}
+                            {% trans "Chat with" %} {{ chat|other_user:request.user }}
                         </a>
                     </li>
                 {% endfor %}
             </ul>
         </div>
     {% else %}
-        <p class="no-items">No items to display.</p>
+        <p class="no-items">{% trans "No items to display." %}</p>
     {% endif %}
 </div>
 {% endblock %}

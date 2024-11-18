@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block extra_head %}
 {% endblock %}
@@ -8,37 +9,37 @@
 <div id="profile-container">
     <div id="profile-card">
         <div id="profile-header">
-            <img id="profile-picture" src="{{ user.profile.profile_picture }}" alt="Profile Picture">
+            <img id="profile-picture" src="{{ user.profile.profile_picture }}" alt="{% trans 'Profile Picture' %}">
             <h1>{{ user.username }}</h1>
         </div>
         <div id="profile-details">
-            <p><strong>Bio:</strong> {{ user.profile.bio }}</p>
+            <p><strong>{% trans "Bio:" %}</strong> {{ user.profile.bio }}</p>
             {% if user.profile.website %}
-                <p><strong>Website:</strong> <a href="{{ user.profile.website }}" target="_blank">{{ user.profile.website }}</a></p>
+                <p><strong>{% trans "Website:" %}</strong> <a href="{{ user.profile.website }}" target="_blank">{{ user.profile.website }}</a></p>
             {% endif %}
-            <p><strong>Socials:</strong></p>
+            <p><strong>{% trans "Socials:" %}</strong></p>
             <ul>
                 {% if user.profile.twitter %}
-                    <li><a href="{{ user.profile.twitter }}" target="_blank">Twitter</a></li>
+                    <li><a href="{{ user.profile.twitter }}" target="_blank">{% trans "Twitter" %}</a></li>
                 {% endif %}
                 {% if user.profile.facebook %}
-                    <li><a href="{{ user.profile.facebook }}" target="_blank">Facebook</a></li>
+                    <li><a href="{{ user.profile.facebook }}" target="_blank">{% trans "Facebook" %}</a></li>
                 {% endif %}
                 {% if user.profile.instagram %}
-                    <li><a href="{{ user.profile.instagram }}" target="_blank">Instagram</a></li>
+                    <li><a href="{{ user.profile.instagram }}" target="_blank">{% trans "Instagram" %}</a></li>
                 {% endif %}
             </ul>
         </div>
 
         {% if user != request.user %}
             <div id="chat-link">
-                <a href="{% url 'private-chat-start' user.pk %}" class="btn-chat">Start Private Chat</a>
+                <a href="{% url 'private-chat-start' user.pk %}" class="btn-chat">{% trans "Start Private Chat" %}</a>
             </div>
         {% endif %}
     </div>
 
     <div id="user-posts">
-        <h2>{{ user.username }}'s Posts</h2>
+        <h2>{{ user.username }}{% trans "'s Posts" %}</h2>
         {% if posts %}
             <ul>
                 {% for post in posts %}
@@ -49,7 +50,7 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <p>{{ user.username }} has not written any posts yet.</p>
+            <p>{{ user.username }} {% trans "has not written any posts yet." %}</p>
         {% endif %}
     </div>
 </div>
