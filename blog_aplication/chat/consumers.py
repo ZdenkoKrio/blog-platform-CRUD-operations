@@ -74,8 +74,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
             )
         except Category.DoesNotExist:
             print(f"Error: Category '{self.chat_id}' does not exist.")
+
         except IntegrityError as e:
             print(f"Error saving group message: {e}")
+
         except Exception as e:
             print(f"Unexpected error: {e}")
 
@@ -90,12 +92,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
             PrivateMessage.objects.create(
                 chat=chat,
                 sender=user,
-                content=message
+                message=message
             )
         except PrivateChat.DoesNotExist:
             print(f"Error: PrivateChat with id '{self.chat_id}' does not exist.")
+
         except IntegrityError as e:
             print(f"Error saving private message: {e}")
+
         except Exception as e:
             print(f"Unexpected error: {e}")
 
