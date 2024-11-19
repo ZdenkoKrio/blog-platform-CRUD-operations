@@ -5,6 +5,7 @@ from .views import (ChatRoomView,
                     PrivateChatDetailView,
                     ChatRoomListView, PrivateChatStartView)
 
+#app_name = 'chat'
 
 urlpatterns = [
     path('chat-list/', ChatRoomListView.as_view(), name='chat-room-list'),
