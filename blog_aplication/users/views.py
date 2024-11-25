@@ -35,7 +35,7 @@ class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
         return self.get_object().user == self.request.user
 
 
-class UserProfileView(DetailView):
+class UserProfileView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'users/profile.html'
     context_object_name = 'user'
